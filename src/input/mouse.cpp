@@ -39,6 +39,9 @@ void MouseHandler::onButtonPressed(const sf::Event& event, const sf::RenderWindo
     if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && !this->states[0]) {
         this->states[0] = true;
         this->callLeftClickListeners(mousePos, true);
+    } else if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && !this->states[1]) {
+        this->states[1] = true;
+        this->callRightClickListeners(mousePos, true);
     }
 }
 
@@ -47,6 +50,9 @@ void MouseHandler::onButtonReleased(const sf::Event& event, const sf::RenderWind
     if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && this->states[0]) {
         this->states[0] = false;
         this->callLeftClickListeners(mousePos, false);
+    } else if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && this->states[1]) {
+        this->states[1] = false;
+        this->callRightClickListeners(mousePos, false);
     }
 }
 
@@ -75,6 +81,24 @@ void MouseHandler::callMouseMoveListeners(const sf::RenderWindow& window) {
             bool result = listener->onMouseMove(mousePos);
             if (result) {
                 return;
+            }
+        }
+    }
+}
+
+void MouseHandler::callRightClickListeners(const sf::Vector2i& mousePos, const bool& pressed) {
+    for (AbstractMouseListener* listener : this->listeners) {
+        if (listener->getActive()) {
+            if (pressed) {
+                bool result = listener->onRightClick(mousePos);
+                if (result) {
+                    return;
+                }
+            } else {
+                bool result = listener->onRightClickReleased(mousePos);
+                if (result) {
+                    return;
+                }
             }
         }
     }

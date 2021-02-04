@@ -2,7 +2,7 @@
 
 #include "main.hpp"
 
-Main::Main(): window(sf::VideoMode(600, 600), "Skyblockers"), world{&this->keyboardHandler, &this->guiHandler}, guiHandler{&this->mouseHandler, &this->keyboardHandler} {
+Main::Main(): window(sf::VideoMode(600, 600), "Skyblockers"), world{&this->mouseHandler, &this->keyboardHandler, &this->guiHandler}, guiHandler{&this->mouseHandler, &this->keyboardHandler} {
     this->window.setFramerateLimit(60);
 }
 
@@ -40,7 +40,7 @@ void Main::run() {
 
         this->resourceManager.tick();
         this->world.renderChunks(this->window, this->resourceManager);
-        this->guiHandler.render(this->window, this->resourceManager);
+        this->guiHandler.render(this->window, this->resourceManager, this->world.getInputHandler()->scrollX, this->world.getInputHandler()->scrollY);
 
         this->window.display();
     }
@@ -58,6 +58,7 @@ void Main::updateSize() {
 
 void Main::saveAll() {
     this->world.saveAll();
+    this->guiHandler.getInventory().save();
 }
 
 int main() {

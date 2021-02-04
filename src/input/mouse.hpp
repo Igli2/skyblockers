@@ -31,5 +31,6 @@ class MouseHandler {
         void onButtonPressed(const sf::Event& event, const sf::RenderWindow& window);
         void onButtonReleased(const sf::Event& event, const sf::RenderWindow& window);
         void callLeftClickListeners(const sf::Vector2i& mousePos, const bool& pressed);
+        void callRightClickListeners(const sf::Vector2i& mousePos, const bool& pressed);
         void callMouseMoveListeners(const sf::RenderWindow& window);
 };

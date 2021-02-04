@@ -22,7 +22,7 @@ class GUIHandler: public AbstractKeyboardListener {
     public:
         GUIHandler(MouseHandler* mouseHandler, KeyboardHandler* keyboardHandler);
         void addGUI(std::unique_ptr<GUIBase> gui, std::string name);
-        void render(sf::RenderWindow& window, ResourceManager& resourceManager);
+        void render(sf::RenderWindow& window, ResourceManager& resourceManager, int scrollX, int scrollY);
         virtual bool onKeyPressed(sf::Keyboard::Key key) override;
-        void openInventory();
+        Inventory& getInventory();
 };

@@ -18,10 +18,12 @@ class World {
         void loadChunkFiles();
         bool doesChunkExist(int x, int y);
         int toChunkPos(int blockPos);
+        void setStartBlocks();
 
     public:
-        World(KeyboardHandler* keyboardHandler, GUIHandler* guiHandler);
+        World(MouseHandler* mouseHandler, KeyboardHandler* keyboardHandler, GUIHandler* guiHandler);
         void saveAll();
         void setBlock(int x, int y, Blocks blockId);
         void renderChunks(sf::RenderWindow& window, ResourceManager& resourceManager);
+        const std::unique_ptr<InputHandler>& getInputHandler();
 };

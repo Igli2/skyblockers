@@ -14,12 +14,18 @@ class Inventory: public GUIBase {
         sf::RectangleShape slot;
         sf::Text text;
         bool visible;
+        Blocks selectedItem;
 
     public:
         Inventory();
-        virtual void render(sf::RenderWindow& window, ResourceManager& resourceManager) override;
+        virtual void render(sf::RenderWindow& window, ResourceManager& resourceManager, int scrollX, int scrollY);
         virtual bool onLeftClick(const sf::Vector2i& mousePos) override;
+        virtual bool onRightClick(const sf::Vector2i& mousePos) override;
         void addItem(Blocks id, uint amount);
+        bool removeItem(Blocks id, uint amount);
         void setVisible(bool state);
         const bool& isVisible();
+        const Blocks& getSelectedItem();
+        void save();
+        void load();
 };

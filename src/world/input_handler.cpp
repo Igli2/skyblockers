@@ -1,15 +1,20 @@
+#include <iostream>
 #include <memory>
+#include <cmath>
 
 #include "input_handler.hpp"
+#include "world.hpp"
 #include "../gui/inventory.hpp"
 #include "../resource/blocks.hpp"
 
-InputHandler::InputHandler(KeyboardHandler* keyboardHandler, GUIHandler* guiHandler):
+InputHandler::InputHandler(MouseHandler* mouseHandler, KeyboardHandler* keyboardHandler, GUIHandler* guiHandler, World* world):
     scrollX{300},
     scrollY{300},
     guiHandler{guiHandler},
+    world{world},
     pressed{false} {
         keyboardHandler->addKeyboardListener(this);
+        mouseHandler->addMouseListener(this);
 }
 
 bool InputHandler::onKeyPressed(sf::Keyboard::Key key) {
@@ -27,7 +32,7 @@ bool InputHandler::onKeyPressed(sf::Keyboard::Key key) {
             this->pressed[3] = true;
             return true;
         case sf::Keyboard::Key::R:
-            this->guiHandler->openInventory();
+            this->guiHandler->getInventory().setVisible(true);
             return true;
     }
     return false;
@@ -64,4 +69,15 @@ void InputHandler::updateScroll() {
     if (this->pressed[3]) {
         this->scrollX -= this->scrollSpeed;
     }
+}
+
+bool InputHandler::onLeftClick(const sf::Vector2i& mousePos) {
+    if (this->guiHandler->getInventory().getSelectedItem() != Blocks::AIR) {
+        int blockX = std::floor(((float)mousePos.x - (float)this->scrollX) / 32);
+        int blockY = std::floor(((float)mousePos.y - (float)this->scrollY) / 32);
+        this->world->setBlock(blockX, blockY, this->guiHandler->getInventory().getSelectedItem());
+        this->guiHandler->getInventory().removeItem(this->guiHandler->getInventory().getSelectedItem(), 1);
+        return true;
+    }
+    return false;
 }

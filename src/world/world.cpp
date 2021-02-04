@@ -6,17 +6,23 @@
 
 #include "world.hpp"
 
-World::World(KeyboardHandler* keyboardHandler, GUIHandler* guiHandler): inputHandler{std::make_unique<InputHandler>(keyboardHandler, guiHandler)} {
+World::World(MouseHandler* mouseHandler, KeyboardHandler* keyboardHandler, GUIHandler* guiHandler): inputHandler{std::make_unique<InputHandler>(mouseHandler, keyboardHandler, guiHandler, this)} {
     if (std::filesystem::exists("../saves")) {
-        this->loadChunkFiles();
+        if (std::filesystem::exists("../saves/world")) {
+            this->loadChunkFiles();
+        } else {
+            std::filesystem::create_directory("../saves/world");
+            this->setStartBlocks();
+        }
     } else {
         std::filesystem::create_directory("../saves");
-        this->setBlock(0, 0, Blocks::DIRT);
+        std::filesystem::create_directory("../saves/world");
+        this->setStartBlocks();
     }
 }
 
 void World::loadChunkFiles() {
-    for (auto& file : std::filesystem::directory_iterator("../saves")) {
+    for (auto& file : std::filesystem::directory_iterator("../saves/world")) {
         std::string filename = filenameFromPath(file.path());
         int chunkX;
         int chunkY;
@@ -75,4 +81,12 @@ void World::renderChunks(sf::RenderWindow& window, ResourceManager& resourceMana
     }
 
     this->inputHandler->updateScroll();
+}
+
+void World::setStartBlocks() {
+    this->setBlock(0, 0, Blocks::DIRT);
+}
+
+const std::unique_ptr<InputHandler>& World::getInputHandler() {
+    return this->inputHandler;
 }

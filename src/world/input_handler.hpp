@@ -1,21 +1,26 @@
 #pragma once
 
 #include "../input/keyboard.hpp"
+#include "../input/mouse.hpp"
 #include "../gui/gui_handler.hpp"
 
-class InputHandler: public AbstractKeyboardListener {
+class World;
+
+class InputHandler: public AbstractKeyboardListener, public AbstractMouseListener {
     private:
         const int scrollSpeed = 4;
 
-        bool pressed[4]; //wsad
+        bool pressed[4];
         GUIHandler* guiHandler;
+        World* world;
 
     public:
         int scrollX;
         int scrollY;
 
-        InputHandler(KeyboardHandler* keyboardHandler, GUIHandler* guiHandler);
+        InputHandler(MouseHandler* mouseHandler, KeyboardHandler* keyboardHandler, GUIHandler* guiHandler, World* world);
         virtual bool onKeyPressed(sf::Keyboard::Key key) override;
         virtual bool onKeyReleased(sf::Keyboard::Key key) override;
+        virtual bool onLeftClick(const sf::Vector2i& mousePos) override;
         void updateScroll();
 };
