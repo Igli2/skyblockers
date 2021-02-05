@@ -8,9 +8,10 @@
 
 struct Texture {
     std::vector<sf::Texture> texture;
+    std::vector<sf::Texture> bottomTexture;
     sf::RectangleShape rect;
+    sf::RectangleShape bottomRect;
 
-    bool isAnimated() {return (this->texture.size() > 1);};
     Texture() = default;
     Texture(const Texture& other) = delete;
     Texture(Texture&& other) = default;

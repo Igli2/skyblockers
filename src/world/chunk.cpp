@@ -45,3 +45,10 @@ void Chunk::render(sf::RenderWindow& window, ResourceManager& resourceManager, c
         resourceManager.renderTexture(x, y, this->blocks[i].blockType, window);
     }
 }
+
+void Chunk::tick(World& world, ResourceManager& resourceManager) {
+    for (int i = 0; i < 1024; ++i) {
+        BlockData& bd = this->blocks[i];
+        resourceManager.getBlockClass(bd.blockType)->tick(world, bd, this->chunkX * 32 + i % 32, this->chunkY * 32 + i / 32);
+    }
+}

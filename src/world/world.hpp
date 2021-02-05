@@ -26,4 +26,5 @@ class World {
         void setBlock(int x, int y, Blocks blockId);
         void renderChunks(sf::RenderWindow& window, ResourceManager& resourceManager);
         const std::unique_ptr<InputHandler>& getInputHandler();
+        void tick(ResourceManager& resourceManager);
 };

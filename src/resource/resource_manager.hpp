@@ -14,11 +14,13 @@ class ResourceManager {
         uint time;
         sf::Font font;
 
-        std::unique_ptr<Texture> loadBlockTexture(std::string filename);
+        std::unique_ptr<Texture> loadBlockTexture(std::string filename, std::string bottomFilename);
+        void updateTextures();
 
     public:
         ResourceManager();
         void renderTexture(float x, float y, Blocks id, sf::RenderWindow& window);
         void tick();
         const sf::Font& getFont();
+        std::unique_ptr<BaseBlock>& getBlockClass(Blocks id);
 };

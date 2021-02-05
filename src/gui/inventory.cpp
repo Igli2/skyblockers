@@ -5,7 +5,7 @@
 
 #include "inventory.hpp"
 
-Inventory::Inventory(): itemCount{}, visible{false}, selectedItem{Blocks::COLLECTOR} {
+Inventory::Inventory(): itemCount{}, visible{false}, selectedItem{Blocks::AIR} {
     this->slot.setSize(sf::Vector2f{48, 48});
     this->slot.setFillColor(sf::Color{100, 100, 100, 75});
     this->slot.setOutlineThickness(2);

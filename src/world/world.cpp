@@ -90,3 +90,9 @@ void World::setStartBlocks() {
 const std::unique_ptr<InputHandler>& World::getInputHandler() {
     return this->inputHandler;
 }
+
+void World::tick(ResourceManager& resourceManager) {
+    for (Chunk& c : this->chunks) {
+        c.tick(*this, resourceManager);
+    }
+}

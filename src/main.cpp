@@ -39,6 +39,7 @@ void Main::run() {
         this->window.clear(sf::Color::White);
 
         this->resourceManager.tick();
+        this->world.tick(this->resourceManager);
         this->world.renderChunks(this->window, this->resourceManager);
         this->guiHandler.render(this->window, this->resourceManager, this->world.getInputHandler()->scrollX, this->world.getInputHandler()->scrollY);
 
