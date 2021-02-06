@@ -42,6 +42,8 @@ void Main::run() {
         this->world.tick(this->resourceManager);
         this->world.renderChunks(this->window, this->resourceManager);
         this->guiHandler.render(this->window, this->resourceManager, this->world.getInputHandler()->scrollX, this->world.getInputHandler()->scrollY);
+        //this->guiHandler.getInventory().addItem(Blocks::GABBRO, 1);
+        //this->guiHandler.getInventory().addItem(Blocks::DIRT, 1);
 
         this->window.display();
     }

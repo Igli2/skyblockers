@@ -1,10 +1,7 @@
 /*
 TODO's:
- - block on tick with access to position...
- - block stages (grass seeds can grow)
  - sort chunks (render bug with pseudo 3d)
  - block destruction
- - load block properties from json
  - item list with all unlocked items (GUI)
  - crafting (GUI) (same as resource list inv?)
  - world: unlocked area handling (buy with materials, vector with area data structs, 4x4 block areas)

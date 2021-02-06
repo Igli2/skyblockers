@@ -16,16 +16,16 @@ ResourceManager::ResourceManager() {
     this->blockTextures[Blocks::DAISY] = loadBlockTexture("daisy.png", "daisy_bottom.png");
     this->blockTextures[Blocks::COLLECTOR] = loadBlockTexture("collector.png", "collector_bottom.png");
 
-    this->blockSingletons[Blocks::AIR] = std::make_unique<BaseBlock>();
-    this->blockSingletons[Blocks::DIRT] = std::make_unique<BaseBlock>();
-    this->blockSingletons[Blocks::GABBRO] = std::make_unique<BaseBlock>();
-    this->blockSingletons[Blocks::MONZONITE] = std::make_unique<BaseBlock>();
-    this->blockSingletons[Blocks::PHYLLITE] = std::make_unique<BaseBlock>();
-    this->blockSingletons[Blocks::FLINT] = std::make_unique<BaseBlock>();
-    this->blockSingletons[Blocks::GRASS_SEEDS] = std::make_unique<BaseBlock>();
-    this->blockSingletons[Blocks::BIOMASS] = std::make_unique<BaseBlock>();
-    this->blockSingletons[Blocks::DAISY] = std::make_unique<FlowerBlock>();
-    this->blockSingletons[Blocks::COLLECTOR] = std::make_unique<CollectorBlock>();
+    this->blockSingletons[Blocks::AIR] = std::make_unique<BaseBlock>("air.json");
+    this->blockSingletons[Blocks::DIRT] = std::make_unique<BaseBlock>("dirt.json");
+    this->blockSingletons[Blocks::GABBRO] = std::make_unique<BaseBlock>("gabbro.json");
+    this->blockSingletons[Blocks::MONZONITE] = std::make_unique<BaseBlock>("monzonite.json");
+    this->blockSingletons[Blocks::PHYLLITE] = std::make_unique<BaseBlock>("phyllite.json");
+    this->blockSingletons[Blocks::FLINT] = std::make_unique<BaseBlock>("flint.json");
+    this->blockSingletons[Blocks::GRASS_SEEDS] = std::make_unique<GrowableBlock>("grass_seeds.json");
+    this->blockSingletons[Blocks::BIOMASS] = std::make_unique<BaseBlock>("biomass.json");
+    this->blockSingletons[Blocks::DAISY] = std::make_unique<GrowableBlock>("daisy.json");
+    this->blockSingletons[Blocks::COLLECTOR] = std::make_unique<CollectorBlock>("collector.json");
 }
 
 std::unique_ptr<Texture> ResourceManager::loadBlockTexture(std::string filename, std::string bottomFilename) {
@@ -54,12 +54,21 @@ std::unique_ptr<Texture> ResourceManager::loadBlockTexture(std::string filename,
     return std::move(t);
 }
 
-void ResourceManager::renderTexture(float x, float y, Blocks id, sf::RenderWindow& window) {
+void ResourceManager::renderTexture(float x, float y, BlockData data, sf::RenderWindow& window, bool drawBottom) {
+    Blocks id = data.blockType;
     if (id != Blocks::AIR) {
+        if (this->blockSingletons[id]->useBlockStage) {
+            this->blockTextures[id]->rect.setTexture(&this->blockTextures[id]->texture[data.stage]);
+            this->blockTextures[id]->bottomRect.setTexture(&this->blockTextures[id]->bottomTexture[data.stage]);
+        }
+
         this->blockTextures[id]->rect.setPosition(x, y);
-        this->blockTextures[id]->bottomRect.setPosition(x, y + 32);
         window.draw(this->blockTextures[id]->rect);
-        window.draw(this->blockTextures[id]->bottomRect);
+
+        if (drawBottom) {
+            this->blockTextures[id]->bottomRect.setPosition(x, y + 32);
+            window.draw(this->blockTextures[id]->bottomRect);
+        }
     }
 }
 

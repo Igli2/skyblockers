@@ -14,7 +14,7 @@ void Chunk::save() {
     std::ofstream file(filename);
 
     for (BlockData& bd : this->blocks) {
-        file.write((char*)&bd.blockType, sizeof(bd.blockType));
+        file.write((char*)&bd, sizeof(bd));
     }
 }
 
@@ -42,7 +42,7 @@ void Chunk::render(sf::RenderWindow& window, ResourceManager& resourceManager, c
     for (int i = 0; i < 1024; ++i) {
         int x = (i % 32) * 32 + this->chunkX * 1024 + scrollX;
         int y = (i / 32) * 32 + this->chunkY * 1024 + scrollY;
-        resourceManager.renderTexture(x, y, this->blocks[i].blockType, window);
+        resourceManager.renderTexture(x, y, this->blocks[i], window);
     }
 }
 

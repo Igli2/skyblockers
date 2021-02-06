@@ -19,7 +19,7 @@ class ResourceManager {
 
     public:
         ResourceManager();
-        void renderTexture(float x, float y, Blocks id, sf::RenderWindow& window);
+        void renderTexture(float x, float y, BlockData data, sf::RenderWindow& window, bool drawBottom=true);
         void tick();
         const sf::Font& getFont();
         std::unique_ptr<BaseBlock>& getBlockClass(Blocks id);

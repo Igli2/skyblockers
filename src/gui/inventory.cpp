@@ -36,7 +36,7 @@ void Inventory::render(sf::RenderWindow& window, ResourceManager& resourceManage
             this->text.setPosition(c * 64 + 102 - this->text.getLocalBounds().width, 88);
 
             window.draw(this->slot);
-            resourceManager.renderTexture(c * 64 + 64, 64, key, window);
+            resourceManager.renderTexture(c * 64 + 64, 64, BlockData{key, 0}, window, false);
             window.draw(this->text);
 
             ++c;
@@ -46,7 +46,7 @@ void Inventory::render(sf::RenderWindow& window, ResourceManager& resourceManage
         sf::Vector2i mousePos = sf::Mouse::getPosition(window);
         int blockX = std::floor(((float)mousePos.x - (float)scrollX) / 32);
         int blockY = std::floor(((float)mousePos.y - (float)scrollY) / 32);
-        resourceManager.renderTexture(blockX * 32 + scrollX, blockY * 32 + scrollY, this->selectedItem, window);
+        resourceManager.renderTexture(blockX * 32 + scrollX, blockY * 32 + scrollY, BlockData{this->selectedItem, 0}, window, false);
     }
 }
 

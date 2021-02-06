@@ -21,6 +21,7 @@ struct Texture {
 
 struct BlockData {
     Blocks blockType;
+    uint stage;
 };
 
 bool endsWith(const std::string& str, const std::string& suffix);
