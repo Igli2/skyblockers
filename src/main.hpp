@@ -1,6 +1,5 @@
 /*
 TODO's:
- - sort chunks (render bug with pseudo 3d)
  - block destruction
  - item list with all unlocked items (GUI)
  - crafting (GUI) (same as resource list inv?)

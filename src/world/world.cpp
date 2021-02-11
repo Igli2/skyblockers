@@ -3,6 +3,7 @@
 #include <charconv>
 #include <cmath>
 #include <iostream>
+#include <set>
 
 #include "world.hpp"
 
@@ -22,15 +23,19 @@ World::World(MouseHandler* mouseHandler, KeyboardHandler* keyboardHandler, GUIHa
 }
 
 void World::loadChunkFiles() {
+    std::set<std::string> sorted_chunks;
     for (auto& file : std::filesystem::directory_iterator("../saves/world")) {
-        std::string filename = filenameFromPath(file.path());
+        sorted_chunks.insert(filenameFromPath(file.path()));
+    }
+    
+    for (std::string filename : sorted_chunks) {
         int chunkX;
         int chunkY;
         std::from_chars(filename.data(), filename.data() + filename.find("."), chunkX);
         std::from_chars(filename.data() + filename.find(".") + 1, filename.data() + filename.length(), chunkY);
 
         Chunk c = Chunk{chunkX, chunkY};
-        c.load(file.path());
+        c.load("../saves/world/" + filename + ".chunk");
         this->chunks.emplace_back(std::move(c));
     }
 }
