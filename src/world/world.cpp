@@ -85,7 +85,7 @@ void World::renderChunks(sf::RenderWindow& window, ResourceManager& resourceMana
         c.render(window, resourceManager, this->inputHandler->scrollX, this->inputHandler->scrollY);
     }
 
-    this->inputHandler->updateScroll();
+    this->inputHandler->updateScroll(sf::Mouse::getPosition(window));
 }
 
 void World::setStartBlocks() {
@@ -100,4 +100,6 @@ void World::tick(ResourceManager& resourceManager) {
     for (Chunk& c : this->chunks) {
         c.tick(*this, resourceManager);
     }
+
+    this->inputHandler->tick();
 }

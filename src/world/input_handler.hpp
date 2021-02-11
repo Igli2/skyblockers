@@ -11,6 +11,10 @@ class InputHandler: public AbstractKeyboardListener, public AbstractMouseListene
         const int scrollSpeed = 4;
 
         bool pressed[4];
+        bool isBreakingBlock;
+        int breakingBlockX;
+        int breakingBlockY;
+        uint breakingBlockTimer;
         GUIHandler* guiHandler;
         World* world;
 
@@ -22,5 +26,9 @@ class InputHandler: public AbstractKeyboardListener, public AbstractMouseListene
         virtual bool onKeyPressed(sf::Keyboard::Key key) override;
         virtual bool onKeyReleased(sf::Keyboard::Key key) override;
         virtual bool onLeftClick(const sf::Vector2i& mousePos) override;
-        void updateScroll();
+        virtual bool onLeftClickReleased(const sf::Vector2i& mousePos) override;
+        virtual bool onMouseMove(const sf::Vector2i& mousePos) override;
+        void updateScroll(sf::Vector2i mousePos);
+        void updateIsBreakingBlock(sf::Vector2i mousePos);
+        void tick();
 };

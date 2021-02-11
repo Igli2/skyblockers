@@ -12,6 +12,8 @@ InputHandler::InputHandler(MouseHandler* mouseHandler, KeyboardHandler* keyboard
     scrollY{300},
     guiHandler{guiHandler},
     world{world},
+    isBreakingBlock{false},
+    breakingBlockTimer{0},
     pressed{false} {
         keyboardHandler->addKeyboardListener(this);
         mouseHandler->addMouseListener(this);
@@ -56,28 +58,71 @@ bool InputHandler::onKeyReleased(sf::Keyboard::Key key) {
     return false;
 }
 
-void InputHandler::updateScroll() {
+void InputHandler::updateScroll(sf::Vector2i mousePos) {
     if (this->pressed[0]) {
         this->scrollY += this->scrollSpeed;
+        this->updateIsBreakingBlock(mousePos);
     }
     if (this->pressed[1]) {
         this->scrollY -= this->scrollSpeed;
+        this->updateIsBreakingBlock(mousePos);
     }
     if (this->pressed[2]) {
         this->scrollX += this->scrollSpeed;
+        this->updateIsBreakingBlock(mousePos);
     }
     if (this->pressed[3]) {
         this->scrollX -= this->scrollSpeed;
+        this->updateIsBreakingBlock(mousePos);
     }
 }
 
 bool InputHandler::onLeftClick(const sf::Vector2i& mousePos) {
+    int blockX = std::floor(((float)mousePos.x - (float)this->scrollX) / 32);
+    int blockY = std::floor(((float)mousePos.y - (float)this->scrollY) / 32);
+
     if (this->guiHandler->getInventory().getSelectedItem() != Blocks::AIR) {
-        int blockX = std::floor(((float)mousePos.x - (float)this->scrollX) / 32);
-        int blockY = std::floor(((float)mousePos.y - (float)this->scrollY) / 32);
         this->world->setBlock(blockX, blockY, this->guiHandler->getInventory().getSelectedItem());
         this->guiHandler->getInventory().removeItem(this->guiHandler->getInventory().getSelectedItem(), 1);
+    } else {
+        this->isBreakingBlock = true;
+        this->breakingBlockX = blockX;
+        this->breakingBlockY = blockY;
+    }
+    return true;
+}
+
+bool InputHandler::onLeftClickReleased(const sf::Vector2i& mousePos) {
+    if (this->isBreakingBlock) {
+        this->isBreakingBlock = false;
+        this->breakingBlockTimer = 0;
         return true;
     }
     return false;
+}
+
+void InputHandler::updateIsBreakingBlock(sf::Vector2i mousePos) {
+    if (this->isBreakingBlock) {
+        int blockX = std::floor(((float)mousePos.x - (float)this->scrollX) / 32);
+        int blockY = std::floor(((float)mousePos.y - (float)this->scrollY) / 32);
+
+        if (this->breakingBlockX != blockX || this->breakingBlockY != blockY) {
+            this->isBreakingBlock = false;
+            this->breakingBlockTimer = 0;
+        }
+    }
+}
+
+bool InputHandler::onMouseMove(const sf::Vector2i& mousePos) {
+    this->updateIsBreakingBlock(mousePos);
+    return false;
+}
+
+void InputHandler::tick() {
+    if (this->isBreakingBlock) {
+        this->breakingBlockTimer += 1;
+        if (this->breakingBlockTimer > 120) {
+            this->world->setBlock(this->breakingBlockX, this->breakingBlockY, Blocks::AIR);
+        }
+    }
 }
