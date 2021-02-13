@@ -17,6 +17,7 @@ class Chunk {
         const int& getX();
         const int& getY();
         void setBlock(int blockPosX, int blockPosY, Blocks blockId);
+        const Blocks& getBlock(int x, int y);
         void render(sf::RenderWindow& window, ResourceManager& resourceManager, const int& scrollX, const int& scrollY);
         void tick(World& world, ResourceManager& resourceManager);
 };

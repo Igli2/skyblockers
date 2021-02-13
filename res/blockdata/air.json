@@ -3,5 +3,6 @@
     "isAnimated": false,
     "useBlockStage": false,
     "maxStages": 0,
-    "growthChance": 0.0
+    "growthChance": 0.0,
+    "drops": {}
 }

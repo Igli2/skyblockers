@@ -24,6 +24,7 @@ class World {
         World(MouseHandler* mouseHandler, KeyboardHandler* keyboardHandler, GUIHandler* guiHandler);
         void saveAll();
         void setBlock(int x, int y, Blocks blockId);
+        const Blocks& getBlock(int x, int y);
         void renderChunks(sf::RenderWindow& window, ResourceManager& resourceManager);
         const std::unique_ptr<InputHandler>& getInputHandler();
         void tick(ResourceManager& resourceManager);

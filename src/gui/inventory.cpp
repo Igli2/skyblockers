@@ -54,6 +54,15 @@ void Inventory::addItem(Blocks id, uint amount) {
     this->itemCount[id] += amount;
 }
 
+bool Inventory::hasItem(Blocks id, uint amount) {
+    if (this->itemCount.contains(id)) {
+        if (this->itemCount[id] >= amount) {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool Inventory::onLeftClick(const sf::Vector2i& mousePos) {
     if (this->visible) {
         int c = 0;
@@ -115,6 +124,10 @@ void Inventory::load() {
 
 const Blocks& Inventory::getSelectedItem() {
     return this->selectedItem;
+}
+
+void Inventory::setSelectedItem(Blocks id) {
+    this->selectedItem = id;
 }
 
 bool Inventory::removeItem(Blocks id, uint amount) {

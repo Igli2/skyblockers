@@ -61,6 +61,19 @@ void World::setBlock(int x, int y, Blocks blockId) {
     }
 }
 
+const Blocks& World::getBlock(int x, int y) {
+    int chunkX = std::floor((float)x / 32);
+    int chunkY = std::floor((float)y / 32);
+
+    for (Chunk& c : this->chunks) {
+        if (chunkX == c.getX() && chunkY == c.getY()) {
+            return c.getBlock(this->toChunkPos(x), this->toChunkPos(y));
+        }
+    }
+
+    throw std::runtime_error("Chunk does'nt exist.");
+}
+
 bool World::doesChunkExist(int x, int y) {
     for (Chunk& c : this->chunks) {
         if (x == c.getX() && y == c.getY()) {
@@ -89,7 +102,7 @@ void World::renderChunks(sf::RenderWindow& window, ResourceManager& resourceMana
 }
 
 void World::setStartBlocks() {
-    this->setBlock(0, 0, Blocks::DIRT);
+    this->setBlock(0, 0, Blocks::GRASS_SEEDS);
 }
 
 const std::unique_ptr<InputHandler>& World::getInputHandler() {
@@ -101,5 +114,5 @@ void World::tick(ResourceManager& resourceManager) {
         c.tick(*this, resourceManager);
     }
 
-    this->inputHandler->tick();
+    this->inputHandler->tick(resourceManager);
 }

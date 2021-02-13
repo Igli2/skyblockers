@@ -30,5 +30,5 @@ class InputHandler: public AbstractKeyboardListener, public AbstractMouseListene
         virtual bool onMouseMove(const sf::Vector2i& mousePos) override;
         void updateScroll(sf::Vector2i mousePos);
         void updateIsBreakingBlock(sf::Vector2i mousePos);
-        void tick();
+        void tick(ResourceManager& manager);
 };

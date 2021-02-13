@@ -1,18 +1,11 @@
 #pragma once
 
 #include <random>
+#include <map>
 
 enum Blocks {
     AIR,
-    DIRT,
-    GABBRO,
-    MONZONITE,
-    PHYLLITE,
-    FLINT,
     GRASS_SEEDS,
-    BIOMASS,
-    DAISY,
-    COLLECTOR,
     MAX
 };
 
@@ -23,23 +16,25 @@ class BaseBlock {
     private:
         void loadBlockData(std::string filename);
 
+    protected:
+        std::random_device rd;
+        std::default_random_engine e;
+        std::uniform_real_distribution<float> chance;
+
     public:
         int animationTime = 0;
         bool isAnimated = false;
         bool useBlockStage = false;
         uint maxStages = 0;
         float growthChance = 0;
+        std::map<Blocks, float> blockDrops;
 
         BaseBlock(std::string filename);
         virtual void tick(World& world, BlockData& blockData, int x, int y);
+        std::map<Blocks, int> getDrops();
 };
 
 class GrowableBlock: public BaseBlock {
-    private:
-        std::random_device rd;
-        std::default_random_engine e;
-        std::uniform_real_distribution<float> chance;
-
     public:
         GrowableBlock(std::string filename);
         virtual void tick(World& world, BlockData& blockData, int x, int y) override;

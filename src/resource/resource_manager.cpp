@@ -6,26 +6,10 @@ ResourceManager::ResourceManager() {
     this->font.loadFromFile("../res/fonts/OpenSansExtraBold.ttf");
 
     this->blockTextures[Blocks::AIR] = loadBlockTexture("air.png", "air_bottom.png");
-    this->blockTextures[Blocks::DIRT] = loadBlockTexture("dirt.png", "dirt_bottom.png");
-    this->blockTextures[Blocks::GABBRO] = loadBlockTexture("gabbro.png", "gabbro_bottom.png");
-    this->blockTextures[Blocks::MONZONITE] = loadBlockTexture("monzonite.png", "monzonite_bottom.png");
-    this->blockTextures[Blocks::PHYLLITE] = loadBlockTexture("phyllite.png", "phyllite_bottom.png");
-    this->blockTextures[Blocks::FLINT] = loadBlockTexture("flint.png", "flint_bottom.png");
     this->blockTextures[Blocks::GRASS_SEEDS] = loadBlockTexture("grass_seeds.png", "grass_seeds_bottom.png");
-    this->blockTextures[Blocks::BIOMASS] = loadBlockTexture("biomass.png", "biomass_bottom.png");
-    this->blockTextures[Blocks::DAISY] = loadBlockTexture("daisy.png", "daisy_bottom.png");
-    this->blockTextures[Blocks::COLLECTOR] = loadBlockTexture("collector.png", "collector_bottom.png");
 
     this->blockSingletons[Blocks::AIR] = std::make_unique<BaseBlock>("air.json");
-    this->blockSingletons[Blocks::DIRT] = std::make_unique<BaseBlock>("dirt.json");
-    this->blockSingletons[Blocks::GABBRO] = std::make_unique<BaseBlock>("gabbro.json");
-    this->blockSingletons[Blocks::MONZONITE] = std::make_unique<BaseBlock>("monzonite.json");
-    this->blockSingletons[Blocks::PHYLLITE] = std::make_unique<BaseBlock>("phyllite.json");
-    this->blockSingletons[Blocks::FLINT] = std::make_unique<BaseBlock>("flint.json");
     this->blockSingletons[Blocks::GRASS_SEEDS] = std::make_unique<GrowableBlock>("grass_seeds.json");
-    this->blockSingletons[Blocks::BIOMASS] = std::make_unique<BaseBlock>("biomass.json");
-    this->blockSingletons[Blocks::DAISY] = std::make_unique<GrowableBlock>("daisy.json");
-    this->blockSingletons[Blocks::COLLECTOR] = std::make_unique<CollectorBlock>("collector.json");
 }
 
 std::unique_ptr<Texture> ResourceManager::loadBlockTexture(std::string filename, std::string bottomFilename) {

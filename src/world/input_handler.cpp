@@ -84,6 +84,9 @@ bool InputHandler::onLeftClick(const sf::Vector2i& mousePos) {
     if (this->guiHandler->getInventory().getSelectedItem() != Blocks::AIR) {
         this->world->setBlock(blockX, blockY, this->guiHandler->getInventory().getSelectedItem());
         this->guiHandler->getInventory().removeItem(this->guiHandler->getInventory().getSelectedItem(), 1);
+        if (!this->guiHandler->getInventory().hasItem(this->guiHandler->getInventory().getSelectedItem(), 1)) {
+            this->guiHandler->getInventory().setSelectedItem(Blocks::AIR);
+        }
     } else {
         this->isBreakingBlock = true;
         this->breakingBlockX = blockX;
@@ -118,11 +121,20 @@ bool InputHandler::onMouseMove(const sf::Vector2i& mousePos) {
     return false;
 }
 
-void InputHandler::tick() {
+void InputHandler::tick(ResourceManager& manager) {
     if (this->isBreakingBlock) {
         this->breakingBlockTimer += 1;
         if (this->breakingBlockTimer > 120) {
-            this->world->setBlock(this->breakingBlockX, this->breakingBlockY, Blocks::AIR);
+            try {
+                Blocks brokenBlock = this->world->getBlock(this->breakingBlockX, this->breakingBlockY);
+                if (brokenBlock != Blocks::AIR) {
+                    std::map<Blocks, int> drops = manager.getBlockClass(brokenBlock)->getDrops();
+                    for (const auto& [blockId, amount] : drops) {
+                        this->guiHandler->getInventory().addItem(blockId, amount);
+                    }
+                    this->world->setBlock(this->breakingBlockX, this->breakingBlockY, Blocks::AIR);
+                }
+            } catch (std::runtime_error& err) {}
         }
     }
 }

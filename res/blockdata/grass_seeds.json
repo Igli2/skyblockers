@@ -3,5 +3,8 @@
     "isAnimated": false,
     "useBlockStage": true,
     "maxStages": 3,
-    "growthChance": 0.1
+    "growthChance": 0.1,
+    "drops": {
+        "GRASS_SEEDS": 150
+    }
 }

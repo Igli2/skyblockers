@@ -38,6 +38,11 @@ void Chunk::setBlock(int blockPosX, int blockPosY, Blocks blockId) {
     this->blocks[index] = BlockData{blockId};
 }
 
+const Blocks& Chunk::getBlock(int x, int y) {
+    int index = y * 32 + x;
+    return this->blocks[index].blockType;
+}
+
 void Chunk::render(sf::RenderWindow& window, ResourceManager& resourceManager, const int& scrollX, const int& scrollY) {
     for (int i = 0; i < 1024; ++i) {
         int x = (i % 32) * 32 + this->chunkX * 1024 + scrollX;

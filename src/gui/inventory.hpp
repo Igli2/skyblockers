@@ -23,9 +23,11 @@ class Inventory: public GUIBase {
         virtual bool onRightClick(const sf::Vector2i& mousePos) override;
         void addItem(Blocks id, uint amount);
         bool removeItem(Blocks id, uint amount);
+        bool hasItem(Blocks id, uint amount);
         void setVisible(bool state);
         const bool& isVisible();
         const Blocks& getSelectedItem();
+        void setSelectedItem(Blocks id);
         void save();
         void load();
 };
