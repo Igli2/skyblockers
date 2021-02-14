@@ -6,5 +6,8 @@
     "growthChance": 0.1,
     "drops": {
         "GRASS_SEEDS": 150
-    }
+    },
+    "isMutable": true,
+    "mutationChance": 0.1,
+    "mutatedBlock": "INVASIVE_GRASS_SEEDS"
 }

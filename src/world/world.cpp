@@ -61,7 +61,7 @@ void World::setBlock(int x, int y, Blocks blockId) {
     }
 }
 
-const Blocks& World::getBlock(int x, int y) {
+const BlockData& World::getBlock(int x, int y) {
     int chunkX = std::floor((float)x / 32);
     int chunkY = std::floor((float)y / 32);
 

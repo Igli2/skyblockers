@@ -4,5 +4,8 @@
     "useBlockStage": false,
     "maxStages": 0,
     "growthChance": 0.0,
-    "drops": {}
+    "drops": {},
+    "isMutable": false,
+    "mutationChance": 0,
+    "mutatedBlock": ""
 }

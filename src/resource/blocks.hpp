@@ -6,6 +6,7 @@
 enum Blocks {
     AIR,
     GRASS_SEEDS,
+    INVASIVE_GRASS_SEEDS,
     MAX
 };
 
@@ -28,10 +29,13 @@ class BaseBlock {
         uint maxStages = 0;
         float growthChance = 0;
         std::map<Blocks, float> blockDrops;
+        bool isMutable;
+        float mutationChance;
+        Blocks mutatedBlock;
 
         BaseBlock(std::string filename);
         virtual void tick(World& world, BlockData& blockData, int x, int y);
-        std::map<Blocks, int> getDrops();
+        std::map<Blocks, int> getDrops(const BlockData& bd);
 };
 
 class GrowableBlock: public BaseBlock {

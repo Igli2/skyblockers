@@ -26,3 +26,4 @@ struct BlockData {
 
 bool endsWith(const std::string& str, const std::string& suffix);
 std::string filenameFromPath(const std::string& str);
+Blocks getBlockType(std::string str);

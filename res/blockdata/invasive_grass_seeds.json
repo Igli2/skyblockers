@@ -1,0 +1,13 @@
+{
+    "animationTime": 0,
+    "isAnimated": false,
+    "useBlockStage": true,
+    "maxStages": 3,
+    "growthChance": 0.5,
+    "drops": {
+        "INVASIVE_GRASS_SEEDS": 150
+    },
+    "isMutable": false,
+    "mutationChance": 0,
+    "mutatedBlock": ""
+}

@@ -126,9 +126,9 @@ void InputHandler::tick(ResourceManager& manager) {
         this->breakingBlockTimer += 1;
         if (this->breakingBlockTimer > 120) {
             try {
-                Blocks brokenBlock = this->world->getBlock(this->breakingBlockX, this->breakingBlockY);
-                if (brokenBlock != Blocks::AIR) {
-                    std::map<Blocks, int> drops = manager.getBlockClass(brokenBlock)->getDrops();
+                BlockData brokenBlock = this->world->getBlock(this->breakingBlockX, this->breakingBlockY);
+                if (brokenBlock.blockType != Blocks::AIR) {
+                    std::map<Blocks, int> drops = manager.getBlockClass(brokenBlock.blockType)->getDrops(brokenBlock);
                     for (const auto& [blockId, amount] : drops) {
                         this->guiHandler->getInventory().addItem(blockId, amount);
                     }

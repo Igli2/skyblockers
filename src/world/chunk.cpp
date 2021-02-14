@@ -38,9 +38,9 @@ void Chunk::setBlock(int blockPosX, int blockPosY, Blocks blockId) {
     this->blocks[index] = BlockData{blockId};
 }
 
-const Blocks& Chunk::getBlock(int x, int y) {
+const BlockData& Chunk::getBlock(int x, int y) {
     int index = y * 32 + x;
-    return this->blocks[index].blockType;
+    return this->blocks[index];
 }
 
 void Chunk::render(sf::RenderWindow& window, ResourceManager& resourceManager, const int& scrollX, const int& scrollY) {

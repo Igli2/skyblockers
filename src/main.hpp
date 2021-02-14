@@ -1,11 +1,11 @@
 /*
 Changes:
- + remove item from inventory when placing
- + get block function in world / chunk
- + added block drops to blockdata json
- + added block drops with chances to block singletons
- + get block drops method from block singleton with rng applied
+ + non max stage blocks only drop themselves
+ + new content
+ + mutability block properties
+ + added mutability on block tick
 TODO's:
+ - fix block placement: replacing
  - item list with all unlocked items (GUI)
  - crafting (GUI) (same as resource list inv?)
  - world: unlocked area handling (buy with materials, vector with area data structs, 4x4 block areas)
@@ -23,6 +23,8 @@ Controls:
  - ESC: close gui
  - LEFT CLICK: place block, hold left click with no item selected: break block
  - RIGHT CLICK: deselect
+Mechanics:
+ - place 5 mutable blocks of same type in plus shape for the center block to be able to mutate.
 Notes:
  - bottom texture: scale top texture, -100 brightness for full blocks
  - 2 bottom rows of top texture to top of bottom texture, -100 brightness for flat blocks

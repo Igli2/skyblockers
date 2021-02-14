@@ -21,3 +21,12 @@ std::string filenameFromPath(const std::string& str) {
     }
     return out;
 }
+
+Blocks getBlockType(std::string str) {
+    if (str == "GRASS_SEEDS") {
+        return Blocks::GRASS_SEEDS;
+    } else if (str == "INVASIVE_GRASS_SEEDS") {
+        return Blocks::INVASIVE_GRASS_SEEDS;
+    }
+    return Blocks::AIR;
+}

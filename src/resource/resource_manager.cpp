@@ -7,9 +7,11 @@ ResourceManager::ResourceManager() {
 
     this->blockTextures[Blocks::AIR] = loadBlockTexture("air.png", "air_bottom.png");
     this->blockTextures[Blocks::GRASS_SEEDS] = loadBlockTexture("grass_seeds.png", "grass_seeds_bottom.png");
+    this->blockTextures[Blocks::INVASIVE_GRASS_SEEDS] = loadBlockTexture("invasive_grass_seeds.png", "invasive_grass_seeds_bottom.png");
 
     this->blockSingletons[Blocks::AIR] = std::make_unique<BaseBlock>("air.json");
     this->blockSingletons[Blocks::GRASS_SEEDS] = std::make_unique<GrowableBlock>("grass_seeds.json");
+    this->blockSingletons[Blocks::INVASIVE_GRASS_SEEDS] = std::make_unique<GrowableBlock>("invasive_grass_seeds.json");
 }
 
 std::unique_ptr<Texture> ResourceManager::loadBlockTexture(std::string filename, std::string bottomFilename) {
