@@ -1,5 +1,6 @@
 #include <iostream>
-#include <simdjson.h>
+// #include <simdjson.h>
+#include "../../lib/simdjson.h"
 
 #include "blocks.hpp"
 #include "../world/world.hpp"
