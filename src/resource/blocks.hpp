@@ -7,6 +7,7 @@ enum Blocks {
     AIR,
     GRASS_SEEDS,
     INVASIVE_GRASS_SEEDS,
+    PLANT_FIBRE,
     MAX
 };
 

@@ -27,6 +27,8 @@ Blocks getBlockType(std::string str) {
         return Blocks::GRASS_SEEDS;
     } else if (str == "INVASIVE_GRASS_SEEDS") {
         return Blocks::INVASIVE_GRASS_SEEDS;
+    } else if (str == "PLANT_FIBRE") {
+        return Blocks::PLANT_FIBRE;
     }
     return Blocks::AIR;
 }

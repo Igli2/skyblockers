@@ -1,11 +1,8 @@
 /*
 Changes:
- + non max stage blocks only drop themselves
  + new content
- + mutability block properties
- + added mutability on block tick
+ + fixed block placement bug
 TODO's:
- - fix block placement: replacing
  - item list with all unlocked items (GUI)
  - crafting (GUI) (same as resource list inv?)
  - world: unlocked area handling (buy with materials, vector with area data structs, 4x4 block areas)
@@ -16,6 +13,7 @@ TODO's:
  - zooming with mouse wheel
  - block states for block data (util.hpp)
  - block breaking animation
+ - block hardness for breaking
  - quests
 Controls:
  - WSAD: scrolling

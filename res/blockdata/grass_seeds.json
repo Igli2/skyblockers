@@ -3,11 +3,12 @@
     "isAnimated": false,
     "useBlockStage": true,
     "maxStages": 3,
-    "growthChance": 0.1,
+    "growthChance": 0.05,
     "drops": {
-        "GRASS_SEEDS": 150
+        "GRASS_SEEDS": 150,
+        "PLANT_FIBRE": 25
     },
     "isMutable": true,
-    "mutationChance": 0.1,
+    "mutationChance": 0.01,
     "mutatedBlock": "INVASIVE_GRASS_SEEDS"
 }

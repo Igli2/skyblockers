@@ -1,12 +1,11 @@
 {
     "animationTime": 0,
     "isAnimated": false,
-    "useBlockStage": true,
-    "maxStages": 3,
-    "growthChance": 0.5,
+    "useBlockStage": false,
+    "maxStages": 0,
+    "growthChance": 0,
     "drops": {
-        "INVASIVE_GRASS_SEEDS": 150,
-        "PLANT_FIBRE": 50
+        "PLANT_FIBRE": 100
     },
     "isMutable": false,
     "mutationChance": 0,

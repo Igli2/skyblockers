@@ -82,10 +82,12 @@ bool InputHandler::onLeftClick(const sf::Vector2i& mousePos) {
     int blockY = std::floor(((float)mousePos.y - (float)this->scrollY) / 32);
 
     if (this->guiHandler->getInventory().getSelectedItem() != Blocks::AIR) {
-        this->world->setBlock(blockX, blockY, this->guiHandler->getInventory().getSelectedItem());
-        this->guiHandler->getInventory().removeItem(this->guiHandler->getInventory().getSelectedItem(), 1);
-        if (!this->guiHandler->getInventory().hasItem(this->guiHandler->getInventory().getSelectedItem(), 1)) {
-            this->guiHandler->getInventory().setSelectedItem(Blocks::AIR);
+        if (this->world->getBlock(blockX, blockY).blockType == Blocks::AIR) {
+            this->world->setBlock(blockX, blockY, this->guiHandler->getInventory().getSelectedItem());
+            this->guiHandler->getInventory().removeItem(this->guiHandler->getInventory().getSelectedItem(), 1);
+            if (!this->guiHandler->getInventory().hasItem(this->guiHandler->getInventory().getSelectedItem(), 1)) {
+                this->guiHandler->getInventory().setSelectedItem(Blocks::AIR);
+            }
         }
     } else {
         this->isBreakingBlock = true;
